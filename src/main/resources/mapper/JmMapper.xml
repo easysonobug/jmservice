@@ -11,6 +11,6 @@
     <select id="getValidCount" resultType="java.lang.Integer">
         select case count(id) > 0 then 0 else 1 end
         from jm_lottery_result
-        where oper_id = #{openId} and  date_format(fill_date, '%Y-%m-%d') = date_format(sysdate(), '%Y-%m-%d')
+        where open_id = #{openId} and  date_format(fill_date, '%Y-%m-%d') = date_format(sysdate(), '%Y-%m-%d')
     </select>
 </mapper>
