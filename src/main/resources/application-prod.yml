@@ -1,0 +1,18 @@
+# 该配置为云托管场景配置，无特殊情况，不允许修改
+server:
+  port: 80
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:springboot_demo}
+    username: ${MYSQL_USERNAME}
+    password: ${MySQL_PASSWORD}
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
