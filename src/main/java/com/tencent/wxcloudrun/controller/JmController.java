@@ -29,12 +29,39 @@ public class JmController {
         return ApiResponse.ok(0);
     }
 
-    @PostMapping("/jm/insertLottery")
-    public ApiResponse insertLottery(@RequestHeader("x-wx-openid")String openId, @RequestBody JmLotteryResult jmLotteryResult) {
+//    @PostMapping("/jm/insertLottery")
+//    public ApiResponse insertLottery(@RequestHeader("x-wx-openid")String openId, @RequestBody JmLotteryResult jmLotteryResult) {
+//        logger.info(openId);
+//        if (StringUtils.hasText(openId)) {
+//            jmLotteryResult.setOpenId(openId);
+//            return jmService.insertLottery(jmLotteryResult);
+//        }
+//        return ApiResponse.error("未知用户ID");
+//    }
+
+    @PostMapping("/jm/doLottery")
+    public ApiResponse insertLottery(@RequestHeader("x-wx-openid")String openId) {
         logger.info(openId);
         if (StringUtils.hasText(openId)) {
-            jmLotteryResult.setOpenId(openId);
-            return jmService.insertLottery(jmLotteryResult);
+            return jmService.insertLottery(openId);
+        }
+        return ApiResponse.error("未知用户ID");
+    }
+
+    @PostMapping("/jm/myLotteryHistory")
+    public ApiResponse myLotteryHistory(@RequestHeader("x-wx-openid")String openId) {
+        logger.info(openId);
+        if (StringUtils.hasText(openId)) {
+            return jmService.myLotteryHistory(openId);
+        }
+        return ApiResponse.error("未知用户ID");
+    }
+
+    @PostMapping("/jm/checkLottery")
+    public ApiResponse checkLottery(@RequestHeader("x-wx-openid")String openId, @RequestBody JmLotteryResult jmLotteryResult) {
+        logger.info(openId);
+        if (StringUtils.hasText(openId)) {
+            return jmService.checkLottery(openId, jmLotteryResult);
         }
         return ApiResponse.error("未知用户ID");
     }

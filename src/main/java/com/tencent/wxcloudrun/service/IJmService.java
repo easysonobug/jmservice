@@ -6,5 +6,9 @@ import com.tencent.wxcloudrun.dto.JmLotteryResult;
 public interface IJmService {
     Integer getValidCount(String openId);
 
-    ApiResponse insertLottery(JmLotteryResult jmLotteryResult);
+    ApiResponse insertLottery(String openId);
+
+    ApiResponse myLotteryHistory(String openId);
+
+    ApiResponse checkLottery(String openId, JmLotteryResult jmLotteryResult);
 }

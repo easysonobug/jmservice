@@ -2,15 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tencent.wxcloudrun.dao.JmMapper">
     <insert id="insertLottery">
-        insert into jm_lottery_result (id, open_id, lottery_code, lottery_name, fill_date)
+        insert into jm_lottery_result (id, open_id, lottery_code, lottery_name, fill_date, status)
         values (
-            uuid(), #{openId}, #{lotteryCode}, #{lotteryName}, sysdate()
+            uuid(), #{openId}, #{lotteryCode}, #{lotteryName}, sysdate(), "未领取"
         )
     </insert>
+    <update id="checkedJmLotteryById">
+        update jm_lottery_result
+        set status = '已领取'
+        where id = #{id}
+    </update>
 
     <select id="getValidCount" resultType="java.lang.Integer">
         select case when count(id) > 0 then 0 else 1 end
         from jm_lottery_result
         where open_id = #{openId} and  date_format(fill_date, '%Y-%m-%d') = date_format(sysdate(), '%Y-%m-%d')
+    </select>
+    <select id="myLotteryHistory" resultType="com.tencent.wxcloudrun.dto.JmLotteryResult">
+        select id, open_id, lottery_code, lottery_name, fill_date, status,
+        case when date_format(fill_date,  '%Y-%m-%d') = date_format(sysdate(),  '%Y-%m-%d') and status = '未领取' then '1' else '0' end as checkStatus
+        from jm_lottery_result
+        where
+        open_id = #{openId}
+        -- date_format(fill_date,  '%Y-%m-%d') >= date_format(date_add(sysdate(), INTERVAL 7 DAY),  '%Y-%m-%d')
+        order by fill_date desc
+        limit 7
+    </select>
+    <select id="getJmLotteryById" resultType="com.tencent.wxcloudrun.dto.JmLotteryResult">
+        select id, open_id, lottery_code, lottery_name, fill_date, status
+        from jm_lottery_result
+        where id = #{id}
     </select>
 </mapper>

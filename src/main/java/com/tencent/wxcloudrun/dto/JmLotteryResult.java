@@ -9,4 +9,6 @@ public class JmLotteryResult {
     private Integer lotteryCode;
     private String lotteryName;
     private Date fillDate;
+    private String status;
+    private String checkStatus;
 }
