@@ -19,7 +19,7 @@
         where open_id = #{openId} and  date_format(fill_date, '%Y-%m-%d') = date_format(sysdate(), '%Y-%m-%d')
     </select>
     <select id="myLotteryHistory" resultType="com.tencent.wxcloudrun.dto.JmLotteryResult">
-        select id, open_id, lottery_code, lottery_name, fill_date, status, date_format(fill_date,  '%Y-%m-%d %T')
+        select id, open_id, lottery_code, lottery_name, fill_date, status, date_format(fill_date,  '%Y-%m-%d %T') as fillDateStr,
         case when date_format(fill_date,  '%Y-%m-%d') = date_format(sysdate(),  '%Y-%m-%d') and status != '未领取' then '1' else '0' end as checkStatus
         from jm_lottery_result
         where
