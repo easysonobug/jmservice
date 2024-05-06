@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/user/add")
-    public ApiResponse add(@RequestHeader("x-wx-openid")String openId, BaseUserInfo baseUserInfo) {
+    public ApiResponse add(@RequestHeader("x-wx-openid")String openId, @RequestBody BaseUserInfo baseUserInfo) {
         logger.info(openId);
         if (StringUtils.hasText(openId)) {
             baseUserInfo.setId(openId);
