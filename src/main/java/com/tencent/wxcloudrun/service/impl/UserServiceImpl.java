@@ -1,6 +1,5 @@
 package com.tencent.wxcloudrun.service.impl;
 
-import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.dao.UserMapper;
 import com.tencent.wxcloudrun.dto.BaseUserInfo;
 import com.tencent.wxcloudrun.service.IUserService;
@@ -16,18 +15,18 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public ApiResponse check(String openId) {
+    public BaseUserInfo check(String openId) {
         BaseUserInfo baseUserInfo = userMapper.check(openId);
-        return ApiResponse.ok(baseUserInfo);
+        return baseUserInfo;
     }
 
     @Override
-    synchronized public ApiResponse add(BaseUserInfo baseUserInfo) {
+    synchronized public BaseUserInfo add(BaseUserInfo baseUserInfo) {
         BaseUserInfo check = userMapper.check(baseUserInfo.getOpenId());
         if (check == null) {
             userMapper.insert(baseUserInfo);
         }
-        return ApiResponse.ok(baseUserInfo);
+        return baseUserInfo;
     }
 
 }
