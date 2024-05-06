@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.UserMapper">
+    <insert id="insert">
+        insert into base_user_info (id, open_id, nick_name, avatar_url, fill_date)
+        values
+        ( #{id}, #{openId}, #{nickName}, #{avatarUrl}, sysdate() )
+    </insert>
+
+    <select id="check" resultType="com.tencent.wxcloudrun.dto.BaseUserInfo">
+        select * from base_user_info where open_id = #{openId}
+    </select>
+</mapper>
